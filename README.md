@@ -1,6 +1,6 @@
 # Job Market Intelligence Dashboard
 
-A graduate-level analytics portfolio project combining pandas cleaning, SQLite storage, SQL analysis, and an interactive Streamlit dashboard.
+An end-to-end analytics portfolio project combining pandas cleaning, SQLite storage, SQL analysis, and an interactive Streamlit dashboard.
 
 **Live Demo:** [add deployed Streamlit URL]
 
