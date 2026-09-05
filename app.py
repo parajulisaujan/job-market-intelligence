@@ -19,7 +19,7 @@ st.caption("Explore the skills, roles, work arrangements, and posted salaries in
 @st.cache_data(show_spinner="Preparing the dataset…")
 def prepare_data(source_path, modified_ns, size):
     # File metadata invalidates the cache after a CSV replacement.
-    return build_pipeline(Path(source_path))
+    return build_pipeline(Path(source_path), DATABASE_PATH)
 
 
 def bar_chart(frame, category, title, horizontal=False):
@@ -42,8 +42,8 @@ try:
     stat = source.stat()
     pipeline_summary = prepare_data(str(source), stat.st_mtime_ns, stat.st_size)
     if not DATABASE_PATH.exists():
-        pipeline_summary = build_pipeline(source)
-    options = filter_options()
+        pipeline_summary = build_pipeline(source, DATABASE_PATH)
+    options = filter_options(DATABASE_PATH)
 except (OSError, ValueError, pd.errors.ParserError, sqlite3.Error) as error:
     st.error("The dataset could not be loaded. Add a valid CSV with title and description columns to data/raw/jobs.csv, or restore the bundled demo CSV.")
     with st.expander("Data loading details"):
@@ -65,7 +65,7 @@ filters = {
     "skill": st.sidebar.multiselect("Skill (matches any selected)", options["skill"]),
 }
 st.sidebar.caption("No selection includes all values. Filters across different fields are combined.")
-results = analyze(filters)
+results = analyze(filters, DATABASE_PATH)
 stats = results["kpis"].iloc[0]
 jobs = results["postings"]
 columns = st.columns(4)

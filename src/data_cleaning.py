@@ -70,10 +70,15 @@ def clean_salary(value, currency="", period=""):
     # Reject open ranges and explanatory numbers rather than guessing endpoints.
     if re.search(r"\+|\b(from|up to|minimum|maximum|starting)\b", text):
         return None, None
+    if re.match(r"^[^\d]*-\s*\d", text) or "--" in text:
+        return None, None
     matches = re.findall(r"(?<![\w.])(\d+(?:\.\d+)?)\s*(k)?", text)
     if not 1 <= len(matches) <= 2:
         return None, None
     numbers = [float(number) * (1000 if suffix else 1) for number, suffix in matches]
+    # A shared trailing k in 80-100k applies to both endpoints.
+    if len(matches) == 2 and matches[1][1] and not matches[0][1] and numbers[0] < 1000:
+        numbers[0] *= 1000
     if len(numbers) == 1:
         numbers *= 2
     low, high = numbers
