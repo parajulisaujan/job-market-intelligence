@@ -2,7 +2,7 @@
 
 An end-to-end analytics portfolio project combining pandas cleaning, SQLite storage, SQL analysis, and an interactive Streamlit dashboard.
 
-**Live Demo:** [add deployed Streamlit URL]
+**Live Demo:** https://job-market-intelligence-sp.streamlit.app/
 
 **GitHub Repository:** [parajulisaujan/job-market-intelligence](https://github.com/parajulisaujan/job-market-intelligence)
 
