@@ -72,8 +72,6 @@ src/
 sql/queries.sql              SQL used by the dashboard
 tests/                       pytest and Streamlit AppTest
 README.md
-INTERVIEW_NOTES.md
-RESUME_BULLETS.md
 requirements.txt
 .streamlit/config.toml
 ```
